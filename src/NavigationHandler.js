@@ -8,8 +8,9 @@ const navigationHandler = function (globalVariables) {
     }
   });
   if (!flag) {
-    globalVariables.generateNavigationArr(globalVariables.getImageNumber());
+    globalVariables.generateNavigationArr();
     arr = globalVariables.getNavigationArr();
+    console.log(arr[0], arr[1], arr[2], arr[3]);
     for (let i = globalVariables.getImageTotal() - 1; i >= 0; i -= 1) {
       const div = document.querySelector(`.navigation#i${i}`);
       if (!div.classList.contains("hidden")) {

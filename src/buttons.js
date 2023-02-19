@@ -9,7 +9,7 @@ const navigationSlideRightButton = document.querySelector(
 const navigationSlideLeftButton = document.querySelector(
   ".navigation.slide-left-button"
 );
-
+const navigationImg = document.querySelector(".image.small");
 const globalVariables = new GlobalVariables();
 
 const showNextImage = function () {
@@ -17,6 +17,7 @@ const showNextImage = function () {
     `.slide#i${globalVariables.getImageNumber()}`
   );
   const nextImgNumber = globalVariables.getNextImageNumber();
+  console.log('nextImganum',nextImgNumber);
   const nextImg = document.querySelector(`.slide#i${nextImgNumber}`);
   currImg.classList.add("hidden");
   nextImg.classList.remove("hidden");
@@ -54,8 +55,32 @@ const imageSliderHandler = function (event) {
   }
 };
 
+const showImage = function(imageId){
+  const imageNum = imageId.split('i');
+  const currImage = globalVariables.getImageNumber();
+  const currImageDiv = document.querySelector(`.slide#i${currImage}`);
+  const newImageDiv = document.querySelector(`.slide#${imageId}`);
+
+  if(!currImageDiv.classList.contains("hidden")){
+    currImageDiv.classList.add("hidden");
+  }
+  if(newImageDiv.classList.contains("hidden")){
+    newImageDiv.classList.remove("hidden");
+  }
+
+  globalVariables.setImageNumber(imageNum[1]);
+  navigationHandler(globalVariables);
+
+}
+
+const navigationClickHandler = function(event){
+  const imageId = event.target.closest("img.navigation").getAttribute("id");
+  showImage(imageId);
+}
+
 slideLeftButton.addEventListener("click", imageSliderHandler);
 slideRightButton.addEventListener("click", imageSliderHandler);
 navigationSlideLeftButton.addEventListener("click", imageSliderHandler);
 navigationSlideRightButton.addEventListener("click", imageSliderHandler);
 window.addEventListener("keydown", keyDownHandler);
+navigationImg.addEventListener("click",navigationClickHandler);

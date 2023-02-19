@@ -48,6 +48,10 @@ body {
   color: #0d9488;
 }
 
+img.navigation:hover{
+  transform: scale(1.2);
+}
+
 .highlight{
   transform: scale(1.2);
   border: 1px solid yellow;

@@ -15,8 +15,9 @@ const imageSliderHandler = function (event) {
   const currImage = globalVariables.getImageNumber();
   const currImageImg = document.querySelector(`#i${currImage}`);
   currImageImg.classList.add("hidden");
+  console.log(currImage);
   if (event.target.classList.contains("slide-left-button")) {
-    const prevImage = globalVariables.getNextImageNumber();
+    const prevImage = globalVariables.getPrevImageNumber();
     const prevImageImg = document.querySelector(`#i${prevImage}`);
     prevImageImg.classList.remove("hidden");
     globalVariables.setImageNumber(prevImage);

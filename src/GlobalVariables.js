@@ -13,7 +13,10 @@ class GlobalVariables{
     }
 
     getPrevImageNumber(){
-        return ((this.imageNumber-1)%this.imageTotal);
+       if(this.imageNumber === 0){
+        return this.imageTotal-1;
+       }
+       return this.imageNumber-1;
     }
 
     getNextImageNumber(){

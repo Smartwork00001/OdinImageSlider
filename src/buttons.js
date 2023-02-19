@@ -11,29 +11,42 @@ const navigationSlideLeftButton = document.querySelector(
 
 const globalVariables = new GlobalVariables();
 
-const imageSliderHandler = function (event) {
-  const currImage = globalVariables.getImageNumber();
-  const currImageImg = document.querySelector(`#i${currImage}`);
-  currImageImg.classList.add("hidden");
-  console.log(currImage);
-  if (event.target.classList.contains("slide-left-button")) {
-    const prevImage = globalVariables.getPrevImageNumber();
-    const prevImageImg = document.querySelector(`#i${prevImage}`);
-    prevImageImg.classList.remove("hidden");
-    globalVariables.setImageNumber(prevImage);
-  } else {
-    const nextImage = globalVariables.getNextImageNumber();
-    const nextImageImg = document.querySelector(`#i${nextImage}`);
-    nextImageImg.classList.remove("hidden");
-    globalVariables.setImageNumber(nextImage);
-  }
-};
+const showNextImage = function(){
+    const currImg = document.querySelector(`#i${globalVariables.getImageNumber()}`);
+    const nextImgNumber = globalVariables.getNextImageNumber();
+    const nextImg = document.querySelector(`#i${nextImgNumber}`);
+    currImg.classList.add("hidden");
+    nextImg.classList.remove("hidden");
+    globalVariables.setImageNumber(nextImgNumber);
+}
 
-const navigationHandler = function (event) {
-  console.log(event.target);
+const showPrevImage = function(){
+    const currImg = document.querySelector(`#i${globalVariables.getImageNumber()}`);
+    const prevImgNumber = globalVariables.getPrevImageNumber();
+    const prevImg = document.querySelector(`#i${prevImgNumber}`);
+    currImg.classList.add("hidden");
+    prevImg.classList.remove("hidden");
+    globalVariables.setImageNumber(prevImgNumber);
+}
+
+const keyDownHandler = function(event){
+    if(event.keyCode === 39){
+        showNextImage();
+    }else if(event.keyCode === 37){
+        showPrevImage();
+    }
+}
+
+const imageSliderHandler = function (event) {
+  if (event.target.classList.contains("slide-left-button")) {
+   showPrevImage();
+  } else {
+    showNextImage();
+  }
 };
 
 slideLeftButton.addEventListener("click", imageSliderHandler);
 slideRightButton.addEventListener("click", imageSliderHandler);
-navigationSlideLeftButton.addEventListener("click", navigationHandler);
-navigationSlideRightButton.addEventListener("click", navigationHandler);
+navigationSlideLeftButton.addEventListener("click", imageSliderHandler);
+navigationSlideRightButton.addEventListener("click", imageSliderHandler);
+window.addEventListener('keydown',keyDownHandler);

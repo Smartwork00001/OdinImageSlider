@@ -1,4 +1,5 @@
 import GlobalVariables from "./GlobalVariables";
+import navigationHandler from "./NavigationHandler";
 
 const slideLeftButton = document.querySelector(".slide-left-button");
 const slideRightButton = document.querySelector(".slide-right-button");
@@ -11,34 +12,6 @@ const navigationSlideLeftButton = document.querySelector(
 
 const globalVariables = new GlobalVariables();
 
-const navigationHandler = function () {
-  let arr = globalVariables.getNavigationArr();
-  const imageNumber = globalVariables.getImageNumber();
-  let flag = false;
-  arr.forEach((x) => {
-    if (x === imageNumber) {
-      flag = true;
-    }
-  });
-  if (!flag) {
-    globalVariables.generateNavigationArr(globalVariables.getImageNumber());
-    arr = globalVariables.getNavigationArr();
-    console.log(arr[0],arr[1],arr[2],arr[3]);
-    for (let i = globalVariables.getImageTotal() - 1; i >= 0; i -= 1) {
-      const div = document.querySelector(`.navigation#i${i}`);
-      if (!div.classList.contains("hidden")) {
-        div.classList.add("hidden");
-      }
-    }
-    for (let i = arr.length - 1; i >= 0; i -= 1) {
-      const div = document.querySelector(`.navigation#i${arr[i]}`);
-      if (div.classList.contains("hidden")) {
-        div.classList.remove("hidden");
-      }
-    }
-  }
-};
-
 const showNextImage = function () {
   const currImg = document.querySelector(
     `.slide#i${globalVariables.getImageNumber()}`
@@ -49,7 +22,7 @@ const showNextImage = function () {
   nextImg.classList.remove("hidden");
 
   globalVariables.setImageNumber(nextImgNumber);
-  navigationHandler();
+  navigationHandler(globalVariables);
 };
 
 const showPrevImage = function () {
@@ -62,7 +35,7 @@ const showPrevImage = function () {
   prevImg.classList.remove("hidden");
 
   globalVariables.setImageNumber(prevImgNumber);
-  navigationHandler();
+  navigationHandler(globalVariables);
 };
 
 const keyDownHandler = function (event) {

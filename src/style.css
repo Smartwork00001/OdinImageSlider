@@ -48,6 +48,11 @@ body {
   color: #0d9488;
 }
 
+.highlight{
+  transform: scale(1.2);
+  border: 1px solid yellow;
+}
+
 .hidden {
   display: none;
 }

@@ -17,7 +17,6 @@ const showNextImage = function () {
     `.slide#i${globalVariables.getImageNumber()}`
   );
   const nextImgNumber = globalVariables.getNextImageNumber();
-  console.log('nextImganum',nextImgNumber);
   const nextImg = document.querySelector(`.slide#i${nextImgNumber}`);
   currImg.classList.add("hidden");
   nextImg.classList.remove("hidden");
